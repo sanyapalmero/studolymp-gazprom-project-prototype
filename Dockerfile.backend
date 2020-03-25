@@ -52,4 +52,5 @@ VOLUME [ "/app/static" ]
 EXPOSE 80
 
 ENV WORKERS=4
+ENTRYPOINT [ "/app/docker/django-entrypoint.sh" ]
 CMD gunicorn -b 0.0.0.0:80 -w $WORKERS -k uvicorn.workers.UvicornWorker --forwarded-allow-ips="*" main.asgi:application
