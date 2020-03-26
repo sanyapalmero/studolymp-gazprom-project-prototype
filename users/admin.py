@@ -1,3 +1,10 @@
-from django.contrib import admin
+from django.contrib import admin, auth
 
-# Register your models here.
+from .models import User
+
+admin.site.unregister(auth.models.Group)
+
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('email', 'username', 'role', 'created_at')
