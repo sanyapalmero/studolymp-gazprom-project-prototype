@@ -1,0 +1,35 @@
+{% extends "control/base.html" %}
+
+{% block navbar %}
+<div class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'control:home' %}">Studolymp</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    {% if request.user.is_admin %}
+                        <a class="nav-link" href="{% url 'admin:index' %}">Админка</a>
+                    {% endif %}
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                    <span class="navbar-text mr-2">{{ request.user.username }}</span>
+                    <a class="btn btn-danger" href="">Выход</a>
+                {% else %}
+                    <a class="btn btn-light" href="">Вход</a>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
