@@ -10,15 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/username/project.git"
+    "url": "git+https://github.com/sanyapalmero/studolymp-gazprom-project-prototype.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/username/project/issues"
+    "url": "https://github.com/sanyapalmero/studolymp-gazprom-project-prototype/issues"
   },
-  "homepage": "https://github.com/username/project#readme",
+  "homepage": "https://github.com/sanyapalmero/studolymp-gazprom-project-prototype#readme",
   "devDependencies": {
+    "@types/bootstrap": "^4.3.1",
     "@types/jquery": "3.3.4",
     "@types/js-cookie": "2.1.0",
     "@types/lodash": "4.14.112",
@@ -40,6 +41,8 @@
     "webpack-cli": "3.0.8"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.0",
+    "bootstrap": "^4.4.1",
     "jquery": ">=3.4.0",
     "js-cookie": "2.2.0",
     "lodash": ">=4.17.12",

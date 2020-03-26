@@ -1,0 +1,25 @@
+$dark-bg: #2F4050;
+$darker-bg: #293846;
+$dark-fg: #A7B1C2;
+
+$sidebar-closing-transition-timing: 0.35s ease;
+$nav-submenu-transition-timing: 0.35s ease;
+
+$prop-icon-height: 1.5rem;
+$prop-icon-border-radius: 0.125rem;
+$prop-icon-box-shadow: $box-shadow-sm;
+
+// ion.rangeSlider variables
+// This values are set in pixels, because ion.rangeSlider originally was styled
+// in pixels. Swithing some values to rem might result in wanky look
+// non-standard root font size;
+$irs-label-font-size: 12px;
+$irs-label-padding-x: 4px;
+$irs-label-padding-y: 2px;
+
+$sortable-handle-height: 1rem;
+$sortable-handle-border-color: $gray-600;
+$sortable-handle-border-width: 0.0625rem;
+
+$btn-floating-size: 3rem;
+$btn-floating-margin: 1rem;
