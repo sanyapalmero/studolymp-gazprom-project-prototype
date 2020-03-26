@@ -43,7 +43,10 @@ INSTALLED_APPS = [
 
     # Local apps
     'control',
+    'users',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
