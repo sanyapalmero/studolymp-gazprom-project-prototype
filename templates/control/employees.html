@@ -4,21 +4,37 @@
 
 {% block content %}
 <div class="container mt-2">
-    <h3>Мои сотрудники</h3>
+    <div class="text-center"><h3>Мои сотрудники</h3></div>
     <table class="table">
         <thead>
-            <tr>
+            <tr class="text-blue text-center">
                 <th>ID</th>
                 <th>ФИО</th>
                 <th>Дата последнего посещения</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             {% for employee in object_list %}
-                <tr>
+                <tr class="text-center">
                     <td>{{employee.id}}</td>
                     <td>{{employee.username}}</td>
                     <td>{{employee.last_login|default_if_none:'Никогда'}}</td>
+                    <td>
+                        <a class="btn btn-success" href="">Создать задачу</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-info" href="">Просмотр задач</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-yellow" href="">Сообщение</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-pink" href="">Профиль</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -28,13 +44,13 @@
             <div class="btn-group">
                 {% if page_obj.has_previous %}
                     <a
-                        class="btn btn-primary"
+                        class="btn btn-info"
                         href="?page=1"
                     >
                         &lt;&lt;
                     </a>
                     <a
-                        class="btn btn-primary"
+                        class="btn btn-info"
                         href="?page={{page_obj.previous_page_number}}"
                     >
                         &lt;
@@ -44,14 +60,14 @@
                 {% for i in page_obj.paginator.page_range %}
                     {% if page_obj.number == i %}
                         <a
-                            class="btn btn-primary active"
+                            class="btn btn-info active"
                             href="?page={{i}}"
                         >
                             {{ i }}
                         </a>
                     {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
                         <a
-                            class="btn btn-primary"
+                            class="btn btn-info"
                             href="?page={{i}}"
                         >
                             {{ i }}
@@ -61,13 +77,13 @@
 
                 {% if page_obj.has_next %}
                     <a
-                        class="btn btn-primary"
+                        class="btn btn-info"
                         href="?page={{page_obj.next_page_number}}"
                     >
                         &gt;
                     </a>
                     <a
-                        class="btn btn-primary"
+                        class="btn btn-info"
                         href="?page={{page_obj.paginator.num_pages}}"
                     >
                         &gt;&gt;

@@ -1,0 +1,21 @@
+@import "./globals";
+
+.btn-pink {
+    color: $white;
+    background-color: $light-pink;
+
+    &:hover {
+        color: $white;
+        background-color: $dark-pink;
+    }
+}
+
+.btn-yellow {
+    color: $white;
+    background-color: $light-yellow;
+
+    &:hover {
+        color: $white;
+        background-color: $dark-yellow;
+    }
+}

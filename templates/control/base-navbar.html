@@ -1,7 +1,7 @@
 {% extends "control/base.html" %}
 
 {% block navbar %}
-<div class="navbar navbar-expand-lg navbar-dark bg-primary">
+<div class="navbar navbar-expand-lg navbar-dark" style="background-color: #0099B0;">
     <div class="container">
         <a class="navbar-brand pt-0" href="{% url 'control:home' %}">Studolymp</a>
         <button class="navbar-toggler"
@@ -30,7 +30,7 @@
                     <span class="navbar-text mr-2">{{ request.user.username }}</span>
                     <a class="btn btn-danger" href="{% url 'users:logout' %}">Выход</a>
                 {% else %}
-                    <a class="btn btn-light" href="{% url 'users:login' %}">Вход</a>
+                    <a class="btn btn-yellow" href="{% url 'users:login' %}">Вход</a>
                 {% endif %}
             </ul>
         </div>
