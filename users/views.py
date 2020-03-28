@@ -6,7 +6,7 @@ from users.forms import LoginForm
 
 
 class LoginView(generic.View):
-    template_name = 'control/login.html'
+    template_name = 'users/login.html'
 
     def get(self, request):
         return render(request, self.template_name)
