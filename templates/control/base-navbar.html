@@ -18,6 +18,10 @@
                 <li class="nav-item">
                     {% if request.user.is_admin %}
                         <a class="nav-link" href="{% url 'admin:index' %}">Админка</a>
+                    {% elif request.user.is_employer %}
+                        <a class="nav-link" href="{% url 'control:employees' %}">Мои сотрудники</a>
+                    {% elif request.user.is_employee %}
+
                     {% endif %}
                 </li>
             </ul>

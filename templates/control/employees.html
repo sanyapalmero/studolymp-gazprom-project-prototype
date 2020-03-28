@@ -1,0 +1,80 @@
+{% extends "control/base-navbar.html" %}
+
+{% block title %}Мои сотрудники{% endblock %}
+
+{% block content %}
+<div class="container mt-2">
+    <h3>Мои сотрудники</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Дата последнего посещения</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in object_list %}
+                <tr>
+                    <td>{{employee.id}}</td>
+                    <td>{{employee.username}}</td>
+                    <td>{{employee.last_login|default_if_none:'Никогда'}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-center">
+        {% if is_paginated %}
+            <div class="btn-group">
+                {% if page_obj.has_previous %}
+                    <a
+                        class="btn btn-primary"
+                        href="?page=1"
+                    >
+                        &lt;&lt;
+                    </a>
+                    <a
+                        class="btn btn-primary"
+                        href="?page={{page_obj.previous_page_number}}"
+                    >
+                        &lt;
+                    </a>
+                {% endif %}
+
+                {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <a
+                            class="btn btn-primary active"
+                            href="?page={{i}}"
+                        >
+                            {{ i }}
+                        </a>
+                    {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                        <a
+                            class="btn btn-primary"
+                            href="?page={{i}}"
+                        >
+                            {{ i }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a
+                        class="btn btn-primary"
+                        href="?page={{page_obj.next_page_number}}"
+                    >
+                        &gt;
+                    </a>
+                    <a
+                        class="btn btn-primary"
+                        href="?page={{page_obj.paginator.num_pages}}"
+                    >
+                        &gt;&gt;
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
