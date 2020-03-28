@@ -63,10 +63,6 @@ class User(AbstractBaseUser):
         return self.role == self.ROLE_EMPLOYEE
 
     @property
-    def is_user(self):
-        return self.role == self.ROLE_USER
-
-    @property
     def is_staff(self):
         return self.is_admin
 
