@@ -1,0 +1,29 @@
+{% extends "control/base-navbar.html" %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<div class="container mt-2">
+    <div class="col-lg-4 pl-0">
+        <h3>Аутентификация</h3>
+        <form action="{% url 'users:login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" id="email" value="{{ form.email.value|default:"" }}">
+                {% for error in form.email.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" class="form-control" name="password" id="password" value="{{ form.password.value|default:"" }}">
+                {% for error in form.password.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <button class="btn btn-primary" type="submit">Войти</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
