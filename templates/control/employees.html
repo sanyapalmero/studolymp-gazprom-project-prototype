@@ -8,15 +8,11 @@
     {% if task_created %}
         <p class="text-success">{{task_created}}</p>
     {% endif %}
-    <table class="table">
+    <table class="table w-75 mx-auto">
         <thead>
             <tr class="text-blue text-center">
                 <th>ID</th>
                 <th>ФИО</th>
-                <th>Дата последнего посещения</th>
-                <th></th>
-                <th></th>
-                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -25,8 +21,7 @@
                 <tr>
                     <td class="text-center">{{employee.pk}}</td>
                     <td class="text-center">{{employee.username}}</td>
-                    <td class="text-center">{{employee.last_login|default_if_none:'Никогда'}}</td>
-                    <td>
+                    <td class="text-center">
                         <button
                             type="button"
                             class="btn btn-success"
@@ -78,14 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                    </td>
-                    <td>
                         <a class="btn btn-info" href="{% url 'control:tasks' %}?employee={{employee.pk}}">Просмотр задач</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-yellow" href="">Сообщение</a>
-                    </td>
-                    <td>
                         <a class="btn btn-pink" href="">Профиль</a>
                     </td>
                 </tr>

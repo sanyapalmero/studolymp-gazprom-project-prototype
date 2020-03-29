@@ -11,15 +11,13 @@
             <h3>Мои задачи</h3>
         {% endif %}
     </div>
-    <table class="table">
+    <table class="table w-75 mx-auto">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Текст</th>
                 <th>Статус</th>
-                <th>Дата создания</th>
                 <th>Сроком до</th>
-                <th>Дата заверния</th>
                 <th></th>
             </tr>
         </thead>
@@ -29,23 +27,24 @@
                     <td>{{task.id}}</td>
                     <td>{{task.text|truncatewords:5}}</td>
                     <td>{{task.get_status_display}}</td>
-                    <td>{{task.created_at}}</td>
                     <td>{{task.until_to|date:"d.m.Y"}}</td>
-                    <td>{{task.finished_at|default_if_none:'Не завершено'}}</td>
                     <td>
-                        {% if request.user.is_employee and not task.is_finished %}
-                            {% if task.is_waiting %}
-                                <form action="{% url 'control:accept-task' task.pk %}" method="post">
-                                    {% csrf_token %}
-                                    <button class="btn btn-yellow w-100" type="submit">Принять</button>
-                                </form>
-                            {% elif task.is_working %}
-                                <form action="{% url 'control:finish-task' task.pk %}" method="post">
-                                    {% csrf_token %}
-                                    <button class="btn btn-success w-100" type="submit">Завершить</button>
-                                </form>
+                        <div class="d-flex flex-row">
+                            <a class="btn btn-info mr-2" href="{% url 'control:detail-task' pk=task.pk %}">Открыть</a>
+                            {% if request.user.is_employee and not task.is_finished %}
+                                {% if task.is_waiting %}
+                                    <form action="{% url 'control:accept-task' task.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="btn btn-yellow" type="submit">Принять</button>
+                                    </form>
+                                {% elif task.is_working %}
+                                    <form action="{% url 'control:finish-task' task.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="btn btn-success" type="submit">Завершить</button>
+                                    </form>
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
+                        </div>
                     </td>
                 </tr>
             {% endfor %}

@@ -1,0 +1,39 @@
+{% extends "control/base-navbar.html" %}
+
+{% block title %}Задача{% endblock %}
+
+{% block content %}
+<div class="container mt-2">
+    <h3 class="text-center">Задача №{{object.pk}}</h3>
+    <table class="table w-50 mx-auto">
+        <tr>
+            <th>Текст задачи:</th>
+            <td>{{object.text}}</td>
+        </tr>
+        <tr>
+            <th>Задача от:</th>
+            <td>{{object.from_user.username}}</td>
+        </tr>
+        <tr>
+            <th>Задача для:</th>
+            <td>{{object.for_user.username}}</td>
+        </tr>
+        <tr>
+            <th>Статус:</th>
+            <td>{{object.get_status_display}}</td>
+        </tr>
+        <tr>
+            <th>Дата создания:</th>
+            <td>{{object.created_at}}</td>
+        </tr>
+        <tr>
+            <th>Сроком до:</th>
+            <td>{{object.until_to}}</td>
+        </tr>
+        <tr>
+            <th>Дата завершения</th>
+            <td>{{object.finished_at|default_if_none:'Не завершено'}}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

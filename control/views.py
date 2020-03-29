@@ -107,3 +107,12 @@ class FinishTaskView(generic.View):
         else:
             logout(request)
             return redirect(reverse("users:login"))
+
+
+@method_decorator(login_required, name='dispatch')
+class DetailTaskView(generic.DetailView):
+    template_name = 'control/task-detail.html'
+
+    def get_object(self):
+        task = get_object_or_404(Task, pk=self.kwargs.get("pk"))
+        return task
