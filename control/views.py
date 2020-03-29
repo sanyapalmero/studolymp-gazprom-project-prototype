@@ -25,11 +25,12 @@ class EmployessView(generic.ListView):
 
 
 @method_decorator(login_required, name='dispatch')
-class CreateTask(generic.CreateView):
+class CreateTaskView(generic.CreateView):
     template_name = 'control/employees.html'
 
     def post(self, request, pk):
         task_form = TaskForm(request.POST)
+        object_list = User.objects.filter(role=User.ROLE_EMPLOYEE, employer=request.user)
         if task_form.is_valid():
             for_user = get_object_or_404(User, pk=pk)
             Task.objects.create(
@@ -38,9 +39,11 @@ class CreateTask(generic.CreateView):
                 text=task_form.cleaned_data["text"],
                 until_to=task_form.cleaned_data["until_to"],
             )
-            return redirect(reverse("control:employees"))
+            return render(request, self.template_name, {
+                "task_created": "Задача успешно отправлена сотруднику",
+                "object_list": object_list
+            })
         else:
-            object_list = User.objects.filter(role=User.ROLE_EMPLOYEE, employer=request.user)
             return render(request, self.template_name, {
                 "modal_show": pk,
                 "task_form": task_form,

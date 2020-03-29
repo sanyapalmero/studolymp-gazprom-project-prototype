@@ -5,6 +5,9 @@
 {% block content %}
 <div class="container mt-2">
     <div class="text-center"><h3>Мои сотрудники</h3></div>
+    {% if task_created %}
+        <p class="text-success">{{task_created}}</p>
+    {% endif %}
     <table class="table">
         <thead>
             <tr class="text-blue text-center">
