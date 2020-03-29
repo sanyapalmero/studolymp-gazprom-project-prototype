@@ -1,4 +1,6 @@
+from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import generic
 
@@ -78,3 +80,30 @@ class TasksView(generic.ListView):
             return self.model.objects.filter(for_user=for_user, from_user=self.request.user)
         elif self.request.user.is_employee:
             return self.model.objects.filter(for_user=self.request.user)
+
+
+@method_decorator(login_required, name='dispatch')
+class AcceptTaskView(generic.View):
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        if request.user.is_employee and task.for_user == request.user:
+            task.status = Task.STATUS_WORKING
+            task.save()
+            return redirect(reverse("control:tasks"))
+        else:
+            logout(request)
+            return redirect(reverse("users:login"))
+
+
+@method_decorator(login_required, name='dispatch')
+class FinishTaskView(generic.View):
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        if request.user.is_employee and task.for_user == request.user:
+            task.status = Task.STATUS_FINISHED
+            task.finished_at = timezone.now()
+            task.save()
+            return redirect(reverse("control:tasks"))
+        else:
+            logout(request)
+            return redirect(reverse("users:login"))

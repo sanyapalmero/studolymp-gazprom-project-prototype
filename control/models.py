@@ -22,3 +22,15 @@ class Task(models.Model):
     until_to = models.DateTimeField(verbose_name="Сроком до")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     finished_at = models.DateTimeField(verbose_name="Дата завершения", null=True, blank=True)
+
+    @property
+    def is_waiting(self):
+        return self.status == self.STATUS_WAITING
+
+    @property
+    def is_working(self):
+        return self.status == self.STATUS_WORKING
+
+    @property
+    def is_finished(self):
+        return self.status == self.STATUS_FINISHED

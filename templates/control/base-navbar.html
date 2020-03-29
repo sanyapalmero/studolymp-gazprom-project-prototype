@@ -21,7 +21,7 @@
                     {% elif request.user.is_employer %}
                         <a class="nav-link" href="{% url 'control:employees' %}">Мои сотрудники</a>
                     {% elif request.user.is_employee %}
-
+                        <a class="nav-link" href="{% url 'control:tasks' %}">Мои задачи</a>
                     {% endif %}
                 </li>
             </ul>
