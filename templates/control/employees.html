@@ -19,12 +19,62 @@
         </thead>
         <tbody>
             {% for employee in object_list %}
-                <tr class="text-center">
-                    <td>{{employee.id}}</td>
-                    <td>{{employee.username}}</td>
-                    <td>{{employee.last_login|default_if_none:'Никогда'}}</td>
+                <tr>
+                    <td class="text-center">{{employee.pk}}</td>
+                    <td class="text-center">{{employee.username}}</td>
+                    <td class="text-center">{{employee.last_login|default_if_none:'Никогда'}}</td>
                     <td>
-                        <a class="btn btn-success" href="">Создать задачу</a>
+                        <button
+                            type="button"
+                            class="btn btn-success"
+                            data-toggle="modal"
+                            data-target="#create-task-for-user-{{employee.pk}}">
+                            Создать задачу
+                        </button>
+                        <div class="modal fade {% if modal_show == employee.pk %}show-modal{% endif %}"
+                            id="create-task-for-user-{{employee.pk}}"
+                            tabindex="-1"
+                            role="dialog"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Создание задачи для пользователя {{employee.username}}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{% url 'control:create-task' pk=employee.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label>Задача</label>
+                                                <textarea class="form-control" name="text" cols="30" rows="5" required>{{task_form.text.value|default_if_none:''}}</textarea>
+                                            </div>
+                                            {% if modal_show == employee.pk %}
+                                                {% for error in task_form.text.errors %}
+                                                    <p class="text-danger">{{ error }}</p>
+                                                {% endfor %}
+                                            {% endif %}
+                                            <div class="form-group">
+                                                <label>Сроком до (дд.мм.гггг.)</label>
+                                                <input class="form-control" type="date" name="until_to" required>
+                                            </div>
+                                            {% if modal_show == employee.pk %}
+                                                {% for error in task_form.until_to.errors %}
+                                                    <p class="text-danger">{{ error }}</p>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                            <button type="submit" class="btn btn-success">Создать</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                     <td>
                         <a class="btn btn-info" href="">Просмотр задач</a>
