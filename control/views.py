@@ -49,3 +49,32 @@ class CreateTaskView(generic.CreateView):
                 "task_form": task_form,
                 "object_list": object_list
             })
+
+
+@method_decorator(login_required, name='dispatch')
+class TasksView(generic.ListView):
+    template_name = 'control/tasks.html'
+    model = Task
+    paginate_by = 20
+
+    def get_context_data(self):
+        context = super(TasksView, self).get_context_data()
+        employee_pk = self.request.GET.get("employee")
+        if employee_pk:
+            employee = get_object_or_404(User, pk=employee_pk)
+            context["employee"] = employee
+        return context
+
+    def get_queryset(self):
+        queryset = self.model.objects.all()
+
+        if self.request.user.is_employer:
+            employee_pk = self.request.GET.get("employee")
+
+            if not employee_pk:
+                return queryset.none()
+
+            for_user = get_object_or_404(User, pk=employee_pk)
+            return self.model.objects.filter(for_user=for_user, from_user=self.request.user)
+        elif self.request.user.is_employee:
+            return self.model.objects.filter(for_user=self.request.user)

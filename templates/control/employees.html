@@ -80,7 +80,7 @@
                         </div>
                     </td>
                     <td>
-                        <a class="btn btn-info" href="">Просмотр задач</a>
+                        <a class="btn btn-info" href="{% url 'control:tasks' %}?employee={{employee.pk}}">Просмотр задач</a>
                     </td>
                     <td>
                         <a class="btn btn-yellow" href="">Сообщение</a>
@@ -92,58 +92,10 @@
             {% endfor %}
         </tbody>
     </table>
-    <div class="text-center">
-        {% if is_paginated %}
-            <div class="btn-group">
-                {% if page_obj.has_previous %}
-                    <a
-                        class="btn btn-info"
-                        href="?page=1"
-                    >
-                        &lt;&lt;
-                    </a>
-                    <a
-                        class="btn btn-info"
-                        href="?page={{page_obj.previous_page_number}}"
-                    >
-                        &lt;
-                    </a>
-                {% endif %}
-
-                {% for i in page_obj.paginator.page_range %}
-                    {% if page_obj.number == i %}
-                        <a
-                            class="btn btn-info active"
-                            href="?page={{i}}"
-                        >
-                            {{ i }}
-                        </a>
-                    {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
-                        <a
-                            class="btn btn-info"
-                            href="?page={{i}}"
-                        >
-                            {{ i }}
-                        </a>
-                    {% endif %}
-                {% endfor %}
-
-                {% if page_obj.has_next %}
-                    <a
-                        class="btn btn-info"
-                        href="?page={{page_obj.next_page_number}}"
-                    >
-                        &gt;
-                    </a>
-                    <a
-                        class="btn btn-info"
-                        href="?page={{page_obj.paginator.num_pages}}"
-                    >
-                        &gt;&gt;
-                    </a>
-                {% endif %}
-            </div>
-        {% endif %}
-    </div>
+    {% if is_paginated %}
+        <div class="text-center">
+            {% include 'control/partial/pagination.html' with page_obj=page_obj %}
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

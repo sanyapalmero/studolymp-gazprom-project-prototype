@@ -1,0 +1,44 @@
+{% extends "control/base-navbar.html" %}
+
+{% block title %}Задачи{% endblock %}
+
+{% block content %}
+<div class="container mt-2">
+    <div class="text-center">
+        {% if request.user.is_employer %}
+            <h3>Задачи сотрудника {{ employee.username }}</h3>
+        {% elif request.user.is_employee %}
+            <h3>Мои задачи</h3>
+        {% endif %}
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Текст</th>
+                <th>Статус</th>
+                <th>Дата создания</th>
+                <th>Сроком до</th>
+                <th>Дата заверния</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in object_list %}
+                <tr>
+                    <td>{{task.id}}</td>
+                    <td>{{task.text|truncatewords:5}}</td>
+                    <td>{{task.get_status_display}}</td>
+                    <td>{{task.created_at}}</td>
+                    <td>{{task.until_to|date:"d.m.Y"}}</td>
+                    <td>{{task.finished_at|default_if_none:'Не завершено'}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if is_paginated %}
+        <div class="text-center">
+            {% include 'control/partial/pagination.html' with page_obj=page_obj %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
