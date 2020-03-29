@@ -21,14 +21,18 @@
                 <tr>
                     <td class="text-center">{{employee.pk}}</td>
                     <td class="text-center">{{employee.username}}</td>
-                    <td class="text-center">
-                        <button
-                            type="button"
-                            class="btn btn-success"
-                            data-toggle="modal"
-                            data-target="#create-task-for-user-{{employee.pk}}">
-                            Создать задачу
-                        </button>
+                    <td>
+                        <div class="text-center">
+                            <button
+                                type="button"
+                                class="btn btn-success"
+                                data-toggle="modal"
+                                data-target="#create-task-for-user-{{employee.pk}}">
+                                Создать задачу
+                            </button>
+                            <a class="btn btn-info" href="{% url 'control:tasks' %}?employee={{employee.pk}}">Просмотр задач</a>
+                            <a class="btn btn-pink" href="">Профиль</a>
+                        </div>
                         <div class="modal fade {% if modal_show == employee.pk %}show-modal{% endif %}"
                             id="create-task-for-user-{{employee.pk}}"
                             tabindex="-1"
@@ -73,8 +77,6 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-info" href="{% url 'control:tasks' %}?employee={{employee.pk}}">Просмотр задач</a>
-                        <a class="btn btn-pink" href="">Профиль</a>
                     </td>
                 </tr>
             {% endfor %}
