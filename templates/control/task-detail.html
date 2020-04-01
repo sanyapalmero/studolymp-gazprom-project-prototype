@@ -34,6 +34,14 @@
             <th>Дата завершения</th>
             <td>{{object.finished_at|default_if_none:'Не завершено'}}</td>
         </tr>
+        <tr>
+            <th>Файлы</th>
+            <td>
+                {% for file in object.files %}
+                    <a href="{{file.file.url}}" target="_blank">{{file.title}}</a>
+                {% endfor %}
+            </td>
+        </tr>
     </table>
 </div>
 {% endblock %}

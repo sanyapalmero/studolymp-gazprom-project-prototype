@@ -8,7 +8,7 @@ from users.decorators import login_required
 from users.models import User
 
 from .forms import TaskForm
-from .models import Task
+from .models import Task, TaskFile
 
 
 class HomeView(generic.TemplateView):
@@ -20,6 +20,11 @@ class EmployessView(generic.ListView):
     template_name = 'control/employees.html'
     model = User
     paginate_by = 20
+
+    def get_context_data(self):
+        context = super(EmployessView, self).get_context_data()
+        context["task_form"] = TaskForm()
+        return context
 
     def get_queryset(self):
         queryset = self.model.objects.filter(role=User.ROLE_EMPLOYEE, employer=self.request.user)
@@ -35,12 +40,20 @@ class CreateTaskView(generic.CreateView):
         object_list = User.objects.filter(role=User.ROLE_EMPLOYEE, employer=request.user)
         if task_form.is_valid():
             for_user = get_object_or_404(User, pk=pk)
-            Task.objects.create(
+            task = Task.objects.create(
                 for_user=for_user,
                 from_user=request.user,
                 text=task_form.cleaned_data["text"],
                 until_to=task_form.cleaned_data["until_to"],
             )
+
+            for file in request.FILES.getlist('task_files'):
+                TaskFile.objects.create(
+                    task=task,
+                    file=file,
+                    title=file.name,
+                )
+
             return render(request, self.template_name, {
                 "task_created": "Задача успешно отправлена сотруднику",
                 "object_list": object_list

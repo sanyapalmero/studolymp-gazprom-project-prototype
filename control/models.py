@@ -1,3 +1,6 @@
+import os
+import secrets
+
 from django.db import models
 
 from users.models import User
@@ -34,3 +37,18 @@ class Task(models.Model):
     @property
     def is_finished(self):
         return self.status == self.STATUS_FINISHED
+
+    @property
+    def files(self):
+        return self.taskfile_set.all()
+
+
+def get_file_path(user, filename):
+    secret_path = secrets.token_hex(32)
+    return os.path.join("task-files", secret_path, filename)
+
+
+class TaskFile(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    file = models.FileField(upload_to=get_file_path, verbose_name="Файл")
+    title = models.CharField(max_length=64, verbose_name="Название файла")
