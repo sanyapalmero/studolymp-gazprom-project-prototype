@@ -130,3 +130,39 @@ class DetailTaskView(generic.DetailView):
     def get_object(self):
         task = get_object_or_404(Task, pk=self.kwargs.get("pk"))
         return task
+
+
+@method_decorator(login_required, name='dispatch')
+class AddReportView(generic.CreateView):
+    template_name = 'control/task-detail.html'
+
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        files = request.FILES.getlist('report_files')
+        if not files:
+            return render(request, self.template_name, {
+                "object": task,
+                "report_error": "Не выбрано ни одного файла"
+            })
+
+        for file in files:
+            TaskFile.objects.create(
+                task=task,
+                file=file,
+                title=file.name,
+                file_type=TaskFile.TYPE_REPORT,
+            )
+
+        return redirect(reverse("control:detail-task", kwargs={"pk": pk}))
+
+
+@method_decorator(login_required, name='dispatch')
+class RemoveReportView(generic.DeleteView):
+    template_name = 'control/task-detail.html'
+
+    def get_object(self):
+        report = get_object_or_404(TaskFile, pk=self.kwargs.get("file_pk"))
+        return report
+
+    def get_success_url(self):
+        return reverse("control:detail-task", kwargs={"pk": self.kwargs.get("pk")})

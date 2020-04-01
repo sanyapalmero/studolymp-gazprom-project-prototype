@@ -40,7 +40,11 @@ class Task(models.Model):
 
     @property
     def files(self):
-        return self.taskfile_set.all()
+        return self.taskfile_set.filter(file_type=TaskFile.TYPE_TASK_ADDON)
+
+    @property
+    def reports(self):
+        return self.taskfile_set.filter(file_type=TaskFile.TYPE_REPORT)
 
 
 def get_file_path(user, filename):

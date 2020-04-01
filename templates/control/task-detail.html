@@ -42,6 +42,47 @@
                 {% endfor %}
             </td>
         </tr>
+        <tr>
+            <th>Прикрепленные отчёты</th>
+            <td>
+                {% for file in object.reports %}
+                <div class="d-flex flex-row">
+                    <a href="{{file.file.url}}" target="_blank">{{file.title}}</a>
+                    {% if object.is_working and request.user.is_employee %}
+                        <form action="{% url 'control:remove-report' pk=object.pk file_pk=file.pk %}" method="post">
+                            {% csrf_token %}
+                            <button class="bg-transparent border-0" type="submit">
+                                <i class="fas fa-times red-icon"></i>
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </td>
+        </tr>
     </table>
+    {% if object.is_working and request.user.is_employee %}
+        <div class="mx-auto w-50">
+            <p class="text-center text-muted">
+                Прикрепите к задаче отчёт при необходимости<br>
+                (обратите внимание, отчёт нужно прикреплять до завершения задачи)
+            </p>
+            {% if report_error %}
+                <p class="text-danger">{{report_error}}</p>
+            {% endif %}
+            <form action="{% url 'control:add-report' pk=object.pk %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" name="report_files" class="custom-file-input" multiple>
+                        <label class="custom-file-label">Выберете файлы</label>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
