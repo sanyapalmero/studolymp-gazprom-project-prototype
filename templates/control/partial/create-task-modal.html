@@ -19,31 +19,19 @@
                         <label>Задача</label>
                         <textarea class="form-control" name="{{task_form.text.html_name}}" cols="30" rows="5" required>{{task_form.text.value|default_if_none:''}}</textarea>
                     </div>
-                    {% if modal_show == employee.pk %}
-                        {% for error in task_form.text.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
+                    {% include 'control/partial/display-modal-errors.html' with errors=task_form.text.errors modal_show=modal_show pk=employee.pk %}
                     <div class="form-group">
                         <label>Сроком до (дд.мм.гггг.)</label>
                         <input class="form-control" type="date" name="{{task_form.until_to.html_name}}" required value="{{task_form.until_to.value}}">
                     </div>
-                    {% if modal_show == employee.pk %}
-                        {% for error in task_form.until_to.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
+                    {% include 'control/partial/display-modal-errors.html' with errors=task_form.until_to.errors modal_show=modal_show pk=employee.pk %}
                     <div class="form-group">
                         <div class="custom-file">
                             <label class="custom-file-label">Файлы к задаче (если необходимо)</label>
                             <input type="file" multiple="true" class="custom-file-input" name="{{task_form.task_files.html_name}}">
                         </div>
                     </div>
-                    {% if modal_show == employee.pk %}
-                        {% for error in task_form.task_files.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
+                    {% include 'control/partial/display-modal-errors.html' with errors=task_form.task_files.errors modal_show=modal_show pk=employee.pk %}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>

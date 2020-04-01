@@ -1,0 +1,5 @@
+{% if modal_show == pk %}
+    {% for error in errors %}
+        <p class="text-danger">{{ error }}</p>
+    {% endfor %}
+{% endif %}
