@@ -52,6 +52,7 @@ class CreateTaskView(generic.CreateView):
                     task=task,
                     file=file,
                     title=file.name,
+                    file_type=TaskFile.TYPE_TASK_ADDON,
                 )
 
             return render(request, self.template_name, {

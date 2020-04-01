@@ -35,7 +35,7 @@
             <td>{{object.finished_at|default_if_none:'Не завершено'}}</td>
         </tr>
         <tr>
-            <th>Файлы</th>
+            <th>Файлы к задаче</th>
             <td>
                 {% for file in object.files %}
                     <a href="{{file.file.url}}" target="_blank">{{file.title}}</a>

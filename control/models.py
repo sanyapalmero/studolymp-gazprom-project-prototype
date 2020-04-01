@@ -49,6 +49,14 @@ def get_file_path(user, filename):
 
 
 class TaskFile(models.Model):
+    TYPE_REPORT = "report"
+    TYPE_TASK_ADDON = "task_addon"
+    TYPE_CHOICES = [
+        (TYPE_REPORT, "Отчёт"),
+        (TYPE_TASK_ADDON, "Дополнение к задаче")
+    ]
+
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     file = models.FileField(upload_to=get_file_path, verbose_name="Файл")
     title = models.CharField(max_length=64, verbose_name="Название файла")
+    file_type = models.CharField(max_length=10, choices=TYPE_CHOICES, default=TYPE_TASK_ADDON)
