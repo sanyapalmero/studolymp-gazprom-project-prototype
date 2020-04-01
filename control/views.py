@@ -55,10 +55,7 @@ class CreateTaskView(generic.CreateView):
                     file_type=TaskFile.TYPE_TASK_ADDON,
                 )
 
-            return render(request, self.template_name, {
-                "task_created": "Задача успешно отправлена сотруднику",
-                "object_list": object_list
-            })
+            return redirect(reverse("control:detail-task", kwargs={"pk": task.pk}))
         else:
             return render(request, self.template_name, {
                 "modal_show": pk,
