@@ -46,6 +46,10 @@ class Task(models.Model):
     def reports(self):
         return self.taskfile_set.filter(file_type=TaskFile.TYPE_REPORT)
 
+    class Meta:
+        verbose_name = 'Задача'
+        verbose_name_plural = 'Задачи'
+
 
 def get_file_path(user, filename):
     secret_path = secrets.token_hex(32)
@@ -64,3 +68,7 @@ class TaskFile(models.Model):
     file = models.FileField(upload_to=get_file_path, verbose_name="Файл")
     title = models.CharField(max_length=64, verbose_name="Название файла")
     file_type = models.CharField(max_length=10, choices=TYPE_CHOICES, default=TYPE_TASK_ADDON)
+
+    class Meta:
+        verbose_name = 'Файл'
+        verbose_name_plural = 'Файлы'
