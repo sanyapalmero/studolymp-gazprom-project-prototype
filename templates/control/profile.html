@@ -4,13 +4,7 @@
 
 {% block content %}
 <div class="container mt-2">
-    <h3 class="text-center">
-        {% if request.user.is_employee %}
-            Мой профиль
-        {% elif request.user.is_employer %}
-            Профиль сотрудника {{object.username}}
-        {% endif %}
-    </h3>
+    <h3 class="text-center">{{object.username}}</h3>
     <table class="table w-50 mx-auto">
         <tr>
             <th>ID:</th>
