@@ -1,0 +1,41 @@
+{% extends "control/base-navbar.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="container mt-2">
+    <h3 class="text-center">
+        {% if request.user.is_employee %}
+            Мой профиль
+        {% elif request.user.is_employer %}
+            Профиль сотрудника {{object.username}}
+        {% endif %}
+    </h3>
+    <table class="table w-50 mx-auto">
+        <tr>
+            <th>ID:</th>
+            <td>{{object.id}}</td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>{{object.email}}</td>
+        </tr>
+        <tr>
+            <th>ФИО:</th>
+            <td>{{object.username}}</td>
+        </tr>
+        <tr>
+            <th>Роль:</th>
+            <td>{{object.get_role_display}}</td>
+        </tr>
+        <tr>
+            <th>Дата последнего посещения:</th>
+            <td>{{object.last_login}}</td>
+        </tr>
+        <tr>
+            <th>Дата создания:</th>
+            <td>{{object.created_at}}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

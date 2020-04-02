@@ -163,3 +163,16 @@ class RemoveReportView(generic.DeleteView):
 
     def get_success_url(self):
         return reverse("control:detail-task", kwargs={"pk": self.kwargs.get("pk")})
+
+
+@method_decorator(login_required, name='dispatch')
+class ProfileView(generic.DetailView):
+    template_name = 'control/profile.html'
+
+    def get_object(self):
+        employee_pk = self.request.GET.get("employee")
+        if not employee_pk:
+            return self.request.user
+
+        user = get_object_or_404(User, pk=employee_pk)
+        return user

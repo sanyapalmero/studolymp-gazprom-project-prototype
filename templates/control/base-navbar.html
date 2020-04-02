@@ -15,15 +15,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    {% if request.user.is_admin %}
+                {% if request.user.is_admin %}
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'admin:index' %}">Админка</a>
-                    {% elif request.user.is_employer %}
+                    </li>
+                {% elif request.user.is_employer %}
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'control:employees' %}">Мои сотрудники</a>
-                    {% elif request.user.is_employee %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'control:profile' %}">Мой профиль</a>
+                    </li>
+                {% elif request.user.is_employee %}
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'control:tasks' %}">Мои задачи</a>
-                    {% endif %}
-                </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'control:profile' %}">Мой профиль</a>
+                    </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav">
                 {% if request.user.is_authenticated %}
