@@ -28,7 +28,7 @@
                                 Создать задачу
                             </button>
                             <a class="btn btn-info" href="{% url 'control:tasks' %}?employee={{employee.pk}}">Просмотр задач</a>
-                            <a class="btn btn-pink" href="{% url 'control:profile' %}?employee={{employee.pk}}">Профиль</a>
+                            <a class="btn btn-yellow" href="{% url 'control:profile' %}?employee={{employee.pk}}">Профиль</a>
                         </div>
                         {% include 'control/partial/create-task-modal.html' with modal_show=modal_show employee=employee task_form=task_form %}
                     </td>

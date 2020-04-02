@@ -19,3 +19,23 @@
         background-color: $dark-yellow;
     }
 }
+
+.btn-red {
+    color: $white;
+    background-color: red;
+
+    &:hover {
+        color: $white;
+        background-color: rgb(196, 0, 0);
+    }
+}
+
+.btn-green {
+    color: $white;
+    background-color: #41DB00;
+
+    &:hover {
+        color: $white;
+        background-color: #4EA429;
+    }
+}
