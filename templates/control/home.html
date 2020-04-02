@@ -3,7 +3,27 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
-<div class="container mt-2">
-    <h3>Добро пожаловать</h3>
+<div class="container">
+    <div class="project">
+        <h3>Добро пожаловать</h3>
+        <div class="project-description mt-2">
+            Перед вами прототип проекта<br>
+            <span class="text-blue">
+                &laquo;Организация удаленной работы<br>
+                работодателей и их сотрудников&raquo;
+            </span>
+        </div>
+        <div class="project-author mt-4">
+            <div class="project-author-name">
+                Проект выполнил: <span class="text-blue">Вагнер Александр</span>
+            </div>
+            <div class="project-author-email">
+                Email: <span class="text-blue">sanyapalmero@gmail.com</span>
+            </div>
+        </div>
+        {% if not request.user.is_authenticated %}
+            <div class="mt-4">Чтобы начать работу, пожалуйста <a class="text-blue" href="{% url 'users:login' %}">авторизуйтесь</a> на сайте</div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

@@ -11,6 +11,19 @@
 @import "./custom-buttons";
 @import "./custom-text";
 
+
+.project {
+    margin-top: 150px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    font-size: 20px;
+}
+
+.project-description, .project-author {
+    text-align: center;
+}
+
 .red-icon {
     color: $red;
 }
