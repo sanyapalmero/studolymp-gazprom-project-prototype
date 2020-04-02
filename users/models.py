@@ -72,6 +72,28 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return self.is_admin
 
+    @property
+    def all_tasks_count(self):
+        if self.is_employee:
+            return self.employee_task_set.count()
+        elif self.is_employer:
+            return self.employer_task_set.count()
+
+    @property
+    def waiting_tasks_count(self):
+        from control.models import Task
+        return self.employee_task_set.filter(status=Task.STATUS_WAITING).count()
+
+    @property
+    def working_tasks_count(self):
+        from control.models import Task
+        return self.employee_task_set.filter(status=Task.STATUS_WORKING).count()
+
+    @property
+    def finished_tasks_count(self):
+        from control.models import Task
+        return self.employee_task_set.filter(status=Task.STATUS_FINISHED).count()
+
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'

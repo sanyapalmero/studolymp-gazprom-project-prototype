@@ -36,6 +36,28 @@
             <th>Дата создания:</th>
             <td>{{object.created_at}}</td>
         </tr>
+        <tr>
+            {% if object.is_employer %}
+                <th>Создано задач:</th>
+            {% elif object.is_employee %}
+                <th>Всего задач:</th>
+            {% endif %}
+            <td>{{object.all_tasks_count}}</td>
+        </tr>
+        {% if object.is_employee %}
+            <tr>
+                <th>Задач в ожидании:</th>
+                <td>{{object.waiting_tasks_count}}</td>
+            </tr>
+            <tr>
+                <th>Задач в работе:</th>
+                <td>{{object.working_tasks_count}}</td>
+            </tr>
+            <tr>
+                <th>Выполено задач:</th>
+                <td>{{object.finished_tasks_count}}</td>
+            </tr>
+        {% endif %}
     </table>
 </div>
 {% endblock %}
