@@ -7,7 +7,7 @@ admin.site.unregister(auth.models.Group)
 
 
 class CustomUserAdmin(UserAdmin):
-    list_display = ('email', 'username', 'role', 'employer', 'created_at')
+    list_display = ('email', 'username', 'role', 'employer', 'created_at', 'last_login')
     search_fields = ('email', 'username', 'role')
     readonly_fields = ('created_at', 'last_login')
 
