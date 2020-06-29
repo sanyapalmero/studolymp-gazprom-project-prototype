@@ -100,10 +100,10 @@ class AcceptTaskView(generic.View):
         if request.user.is_employee and task.for_user == request.user:
             task.status = Task.STATUS_WORKING
             task.save()
-            return redirect(reverse("control:tasks"))
+            return redirect("control:tasks")
         else:
             logout(request)
-            return redirect(reverse("users:login"))
+            return redirect("users:login")
 
 
 @method_decorator(login_required, name='dispatch')
@@ -114,10 +114,10 @@ class FinishTaskView(generic.View):
             task.status = Task.STATUS_FINISHED
             task.finished_at = timezone.now()
             task.save()
-            return redirect(reverse("control:tasks"))
+            return redirect("control:tasks")
         else:
             logout(request)
-            return redirect(reverse("users:login"))
+            return redirect("users:login")
 
 
 @method_decorator(login_required, name='dispatch')
